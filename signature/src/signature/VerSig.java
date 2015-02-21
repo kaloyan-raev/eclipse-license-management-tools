@@ -63,7 +63,6 @@ public class VerSig {
 			len = bufin.read(buffer);
 			sig.update(buffer, 0, len);
 		}
-		;
 
 		bufin.close();
 
