@@ -3,13 +3,11 @@ package signature;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
@@ -24,14 +22,13 @@ public class Utils {
 	}
 
 	public static PublicKey readPublicKeyFromFile(String fileName)
-			throws IOException, InvalidKeySpecException,
-			NoSuchAlgorithmException, NoSuchProviderException {
+			throws IOException, GeneralSecurityException {
 		byte[] encoded = readFile(fileName);
 		
 		return readPublicKeyFromBytes(encoded);
 	}
 	
-	public static PublicKey readPublicKeyFromBytes(byte[] bytes) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeySpecException {
+	public static PublicKey readPublicKeyFromBytes(byte[] bytes) throws GeneralSecurityException {
 		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(bytes);
 		KeyFactory keyFactory = KeyFactory.getInstance("DSA", "SUN");
 		PublicKey key = keyFactory.generatePublic(keySpec);
@@ -40,8 +37,7 @@ public class Utils {
 	}
 
 	public static PrivateKey readPrivateKeyFromFile(String fileName)
-			throws IOException, InvalidKeySpecException,
-			NoSuchAlgorithmException, NoSuchProviderException {
+			throws IOException, GeneralSecurityException {
 		byte[] encoded = readFile(fileName);
 
 		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(encoded);

@@ -4,12 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
+import java.security.GeneralSecurityException;
 import java.security.PublicKey;
 import java.security.Signature;
-import java.security.SignatureException;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.UUID;
@@ -98,7 +95,7 @@ public class License {
 			}
 			
 			return signature.verify(getSignature());
-		} catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidKeyException | SignatureException | UnsupportedEncodingException e) {
+		} catch (GeneralSecurityException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 			return false;
 		}
