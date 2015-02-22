@@ -7,7 +7,11 @@ import java.security.NoSuchProviderException;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
+import org.apache.commons.lang.SystemUtils;
 
 public class LicenseUtils {
 	
@@ -20,13 +24,15 @@ public class LicenseUtils {
 			e.printStackTrace();
 			return false;
 		}
-		
-		File licensesFolder = new File("/home/raev/Work/Licensing");
-		for (File file : licensesFolder.listFiles()) {
-			if (file.isFile()) {
-				License license = new License(file);
-				if (productId.equals(license.getProductId()) && license.verifySignature(publicKey)) {
-					return true;
+
+		File[] licenseFiles = getLicenseFolder().listFiles();
+		if (licenseFiles != null) {
+			for (File file : licenseFiles) {
+				if (file.isFile()) {
+					License license = new License(file);
+					if (productId.equals(license.getProductId()) && license.verifySignature(publicKey)) {
+						return true;
+					}
 				}
 			}
 		}
@@ -39,6 +45,28 @@ public class LicenseUtils {
 		PublicKey key = keyFactory.generatePublic(keySpec);
 
 		return key;
+	}
+	
+	public static License[] getLicenses() {
+		List<License> result = new ArrayList<License>();
+		
+		File[] licenseFiles = getLicenseFolder().listFiles();
+		if (licenseFiles != null) {
+			for (File file : licenseFiles) {
+				if (file.isFile()) {
+					License license = new License(file);
+					if (license.getProductId() != null) {
+						result.add(license);
+					}
+				}
+			}
+		}
+	
+		return result.toArray(new License[result.size()]);
+	}
+	
+	public static File getLicenseFolder() { 
+		return new File(SystemUtils.getUserHome(), ".eclipse/org.eclipse.licensing");
 	}
 
 }

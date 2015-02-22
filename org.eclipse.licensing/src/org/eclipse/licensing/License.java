@@ -28,12 +28,14 @@ public class License {
 	public final static String SIGNATURE = "Signature";
 	
 	private Properties properties;
+	private File file;
 	
 	public License(Properties properties) {
 		this.properties = properties;
 	}
 	
 	public License(File file) {
+		this.file = file;
 		properties = new Properties();
 		try {
 			properties.load(new FileInputStream(file));
@@ -45,6 +47,10 @@ public class License {
 	
 	public License(String fileName) {
 		this(new File(fileName));
+	}
+	
+	public File getFile() {
+		return file;
 	}
 	
 	public String getProperty(String key) {
