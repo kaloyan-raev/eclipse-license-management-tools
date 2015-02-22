@@ -78,7 +78,7 @@ public class License {
 		return Base64.decodeBase64(getSignatureAsString());
 	}
 	
-	public boolean verifySignature(PublicKey publicKey) {
+	public boolean isAuthentic(PublicKey publicKey) {
 		try {
 			Signature signature = Signature.getInstance("SHA1withDSA", "SUN");
 			signature.initVerify(publicKey);

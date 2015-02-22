@@ -30,7 +30,7 @@ public class LicenseUtils {
 			for (File file : licenseFiles) {
 				if (file.isFile()) {
 					License license = new License(file);
-					if (productId.equals(license.getProductId()) && license.verifySignature(publicKey)) {
+					if (productId.equals(license.getProductId()) && license.isAuthentic(publicKey)) {
 						return true;
 					}
 				}
