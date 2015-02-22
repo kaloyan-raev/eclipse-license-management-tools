@@ -33,9 +33,18 @@ public class License {
 		this.properties = properties;
 	}
 	
-	public License(File file) throws IOException {
+	public License(File file) {
 		properties = new Properties();
-		properties.load(new FileInputStream(file));
+		try {
+			properties.load(new FileInputStream(file));
+		} catch (IOException e) {
+			// TODO set in invalid status
+			e.printStackTrace();
+		}
+	}
+	
+	public License(String fileName) {
+		this(new File(fileName));
 	}
 	
 	public String getProperty(String key) {
@@ -44,7 +53,7 @@ public class License {
 	
 	public UUID getProductId() {
 		String productId = getProperty(PRODUCT_ID);
-		return UUID.fromString(productId);
+		return (productId == null) ? null : UUID.fromString(productId);
 	}
 	
 	public String getProductName() {
@@ -63,7 +72,7 @@ public class License {
 		return Base64.decodeBase64(getSignatureAsString());
 	}
 	
-	public boolean isValid(PublicKey publicKey) {
+	public boolean verifySignature(PublicKey publicKey) {
 		try {
 			Signature signature = Signature.getInstance("SHA1withDSA", "SUN");
 			signature.initVerify(publicKey);
@@ -75,6 +84,11 @@ public class License {
 					String propValue = getProperty(propKey);
 					signature.update(propValue.getBytes("UTF-8"));
 				}
+			}
+			
+			byte[] encodedSignature = getSignature();
+			if (encodedSignature == null) {
+				return false;
 			}
 			
 			return signature.verify(getSignature());
