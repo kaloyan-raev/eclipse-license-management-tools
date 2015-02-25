@@ -4,8 +4,8 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="org.eclipse.license.ui.prefs.LicensesPreferencePage"
-            id="org.eclipse.license.ui.licensesPreferencePage"
+            class="org.eclipse.licensing.ui.prefs.LicensesPreferencePage"
+            id="org.eclipse.licensing.ui.licensesPreferencePage"
             name="Licenses">
       </page>
    </extension>

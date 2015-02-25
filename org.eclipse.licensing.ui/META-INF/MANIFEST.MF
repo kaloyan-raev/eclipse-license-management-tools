@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Eclipse License Framework UI
-Bundle-SymbolicName: org.eclipse.license.ui;singleton:=true
+Bundle-Name: Eclipse Licensing Framework UI
+Bundle-SymbolicName: org.eclipse.licensing.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.eclipse.license.ui.LicenseUI
+Bundle-Activator: org.eclipse.licensing.ui.LicensingUI
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.licensing

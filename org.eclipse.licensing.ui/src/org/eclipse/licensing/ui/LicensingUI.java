@@ -1,4 +1,4 @@
-package org.eclipse.license.ui;
+package org.eclipse.licensing.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -6,18 +6,18 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class LicenseUI extends AbstractUIPlugin {
+public class LicensingUI extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.eclipse.license.ui"; //$NON-NLS-1$
 
 	// The shared instance
-	private static LicenseUI plugin;
+	private static LicensingUI plugin;
 	
 	/**
 	 * The constructor
 	 */
-	public LicenseUI() {
+	public LicensingUI() {
 	}
 
 	/*
@@ -43,7 +43,7 @@ public class LicenseUI extends AbstractUIPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static LicenseUI getDefault() {
+	public static LicensingUI getDefault() {
 		return plugin;
 	}
 

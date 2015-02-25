@@ -1,4 +1,4 @@
-package org.eclipse.license.ui.prefs;
+package org.eclipse.licensing.ui.prefs;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,11 +18,11 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.license.ui.LicenseUI;
 import org.eclipse.licensing.ILicensedProduct;
 import org.eclipse.licensing.LicenseKey;
 import org.eclipse.licensing.LicenseProducts;
 import org.eclipse.licensing.LicenseUtils;
+import org.eclipse.licensing.ui.LicensingUI;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -81,7 +81,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 
 			@Override
 			public Image getImage(Object element) {
-				Bundle bundle = Platform.getBundle(LicenseUI.PLUGIN_ID);
+				Bundle bundle = Platform.getBundle(LicensingUI.PLUGIN_ID);
 				IPath path = new Path("icons/key.gif");
 				URL url = FileLocator.find(bundle, path, null);
 				ImageDescriptor desc = ImageDescriptor.createFromURL(url);
