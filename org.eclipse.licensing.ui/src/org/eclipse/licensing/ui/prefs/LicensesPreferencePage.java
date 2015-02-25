@@ -16,9 +16,11 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.licensing.ILicensedProduct;
@@ -44,6 +46,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage {
 	
 	private TreeViewer tree;
+	private Button removeButton;
 
 	@Override
 	public void init(IWorkbench workbench) {
@@ -69,7 +72,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 	}
 	
 	private void createTable(Composite parent) {
-		tree = new TreeViewer(parent);
+		tree = new TreeViewer(parent, SWT.SINGLE);
 		tree.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		tree.setContentProvider(new ITreeContentProvider() {
 			@Override
@@ -144,6 +147,14 @@ public class LicensesPreferencePage extends PreferencePage implements
 				return desc.createImage();
 			}
 		});
+		tree.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				Object element = ((IStructuredSelection) event.getSelection()).getFirstElement();
+				boolean enable = element != null && element instanceof LicenseKey;
+				removeButton.setEnabled(enable);
+			}
+		});
 		refreshTable();
 	}
 	
@@ -161,7 +172,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 		
 		Button addButton = new Button(composite, SWT.PUSH);
 		addButton.setLayoutData(new GridData(SWT.FILL, SWT.NONE, false, false));
-		addButton.setText("&Add...");
+		addButton.setText("&Add License...");
 		addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -197,9 +208,10 @@ public class LicensesPreferencePage extends PreferencePage implements
 			}
 		});
 		
-		Button removeButton = new Button(composite, SWT.PUSH);
+		removeButton = new Button(composite, SWT.PUSH);
 		removeButton.setLayoutData(new GridData(SWT.FILL, SWT.NONE, false, false));
 		removeButton.setText("&Remove");
+		removeButton.setEnabled(false);
 		removeButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
