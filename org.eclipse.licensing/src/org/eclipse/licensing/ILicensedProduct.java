@@ -7,6 +7,8 @@ public interface ILicensedProduct {
 	
 	public UUID getProductId();
 	
+	public String getProductName();
+	
 	public PublicKey getPublicKey();
 
 }

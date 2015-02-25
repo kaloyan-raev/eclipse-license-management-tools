@@ -49,6 +49,11 @@ public class MyLicensedProduct implements ILicensedProduct {
 	public UUID getProductId() {
 		return PRODUCT_ID;
 	}
+
+	@Override
+	public String getProductName() {
+		return "My First Licensed Product";
+	}
 	
 	@Override
 	public PublicKey getPublicKey() {

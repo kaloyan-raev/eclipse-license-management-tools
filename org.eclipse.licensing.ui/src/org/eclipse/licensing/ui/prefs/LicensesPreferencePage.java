@@ -5,6 +5,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
@@ -13,14 +15,15 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.licensing.ILicensedProduct;
 import org.eclipse.licensing.LicenseKey;
-import org.eclipse.licensing.LicenseProducts;
+import org.eclipse.licensing.LicensedProducts;
 import org.eclipse.licensing.LicensingUtils;
 import org.eclipse.licensing.ui.LicensingUI;
 import org.eclipse.swt.SWT;
@@ -40,7 +43,7 @@ import org.osgi.framework.Bundle;
 public class LicensesPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage {
 	
-	private TableViewer table;
+	private TreeViewer tree;
 
 	@Override
 	public void init(IWorkbench workbench) {
@@ -66,23 +69,76 @@ public class LicensesPreferencePage extends PreferencePage implements
 	}
 	
 	private void createTable(Composite parent) {
-		table = new TableViewer(parent);
-		table.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		table.setContentProvider(ArrayContentProvider.getInstance());
-		table.setLabelProvider(new ColumnLabelProvider() {
+		tree = new TreeViewer(parent);
+		tree.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		tree.setContentProvider(new ITreeContentProvider() {
 			@Override
-			public String getText(Object element) {
+			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+			}
+			
+			@Override
+			public void dispose() {
+			}
+			
+			@Override
+			public Object[] getElements(Object inputElement) {
+				return (ILicensedProduct[]) inputElement;
+			}
+			
+			@Override
+			public Object[] getChildren(Object parentElement) {
+				ILicensedProduct product = (ILicensedProduct) parentElement;
+				LicenseKey[] licenseKeys = LicensingUtils.getLicenseKeys();
+				
+				List<LicenseKey> children = new ArrayList<LicenseKey>();
+				for (LicenseKey licenseKey : licenseKeys) {
+					if (product.getProductId().equals(licenseKey.getProductId())) {
+						children.add(licenseKey);
+					}
+				}
+				
+				return children.toArray();
+			}
+			
+			@Override
+			public Object getParent(Object element) {
 				if (element instanceof LicenseKey) {
 					LicenseKey licenseKey = (LicenseKey) element;
-					return licenseKey.getProductName();
+					return LicensedProducts.getLicensedProduct(licenseKey.getProductId());
 				}
+				return null;
+			}
+			
+			@Override
+			public boolean hasChildren(Object element) {
+				return element instanceof ILicensedProduct;
+			}
+		});
+		tree.setLabelProvider(new LabelProvider() {
+			@Override
+			public String getText(Object element) {
+				if (element instanceof ILicensedProduct) {
+					ILicensedProduct product = (ILicensedProduct) element;
+					return product.getProductName();
+				}
+				
+				if (element instanceof LicenseKey) {
+					LicenseKey licenseKey = (LicenseKey) element;
+					return licenseKey.getProductId().toString();
+				}
+				
 				return super.getText(element);
 			}
 
 			@Override
 			public Image getImage(Object element) {
+				String file = "product.png";
+				if (element instanceof LicenseKey) {
+					file = "key.png";
+				}
+				
 				Bundle bundle = Platform.getBundle(LicensingUI.PLUGIN_ID);
-				IPath path = new Path("icons/key.png");
+				IPath path = new Path("icons/" + file);
 				URL url = FileLocator.find(bundle, path, null);
 				ImageDescriptor desc = ImageDescriptor.createFromURL(url);
 				return desc.createImage();
@@ -92,7 +148,8 @@ public class LicensesPreferencePage extends PreferencePage implements
 	}
 	
 	private void refreshTable() {
-		table.setInput(LicensingUtils.getLicenseKeys());
+		tree.setInput(LicensedProducts.getLicensedProducts());
+		tree.expandAll();
 	}
 	
 	private void createButtons(final Composite parent) {
@@ -114,7 +171,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 				
 				// check if license file is valid
 				LicenseKey licenseKey = new LicenseKey(filePath);
-				ILicensedProduct product = LicenseProducts.getLicensedProduct(licenseKey.getProductId());
+				ILicensedProduct product = LicensedProducts.getLicensedProduct(licenseKey.getProductId());
 				if (product == null) {
 					MessageDialog.openError(getShell(), "Error", "No product found for the selected license!");
 					return;
@@ -146,7 +203,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 		removeButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				ISelection selection = table.getSelection();
+				ISelection selection = tree.getSelection();
 				if (selection.isEmpty())
 					return;
 				
