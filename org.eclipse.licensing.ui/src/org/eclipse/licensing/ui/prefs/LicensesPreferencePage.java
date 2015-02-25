@@ -49,7 +49,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 
 	@Override
 	public String getDescription() {
-		return "Installed &license keys:";
+		return "&Installed products and license keys:";
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 			@Override
 			public Image getImage(Object element) {
 				Bundle bundle = Platform.getBundle(LicensingUI.PLUGIN_ID);
-				IPath path = new Path("icons/key.gif");
+				IPath path = new Path("icons/key.png");
 				URL url = FileLocator.find(bundle, path, null);
 				ImageDescriptor desc = ImageDescriptor.createFromURL(url);
 				return desc.createImage();
