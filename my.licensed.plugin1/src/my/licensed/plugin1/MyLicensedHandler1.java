@@ -7,14 +7,14 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.licensing.LicenseUtils;
+import org.eclipse.licensing.LicensingUtils;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 public class MyLicensedHandler1 extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		if (LicenseUtils.hasValidLicenseKey(PRODUCT_ID, PUBLIC_KEY)) {
+		if (LicensingUtils.hasValidLicenseKey(PRODUCT_ID, PUBLIC_KEY)) {
 			MessageDialog.openInformation(HandlerUtil.getActiveShell(event),
 					"Licensed Command", "This is my first licensed command.");
 		} else {

@@ -5,7 +5,7 @@ import java.security.PublicKey;
 import java.util.UUID;
 
 import org.eclipse.licensing.ILicensedProduct;
-import org.eclipse.licensing.LicenseUtils;
+import org.eclipse.licensing.LicensingUtils;
 
 public class MyLicensedProduct implements ILicensedProduct {
 	
@@ -53,7 +53,7 @@ public class MyLicensedProduct implements ILicensedProduct {
 	@Override
 	public PublicKey getPublicKey() {
 		try {
-			return LicenseUtils.readPublicKeyFromBytes(PUBLIC_KEY);
+			return LicensingUtils.readPublicKeyFromBytes(PUBLIC_KEY);
 		} catch (GeneralSecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

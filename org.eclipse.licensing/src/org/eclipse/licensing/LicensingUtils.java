@@ -11,7 +11,7 @@ import java.util.UUID;
 
 import org.apache.commons.lang.SystemUtils;
 
-public class LicenseUtils {
+public class LicensingUtils {
 	
 	public static boolean hasValidLicenseKey(UUID productId, byte[] encodedPublicKey) {
 		PublicKey publicKey;

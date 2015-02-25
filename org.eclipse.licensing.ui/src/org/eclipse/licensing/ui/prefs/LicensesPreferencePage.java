@@ -21,7 +21,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.licensing.ILicensedProduct;
 import org.eclipse.licensing.LicenseKey;
 import org.eclipse.licensing.LicenseProducts;
-import org.eclipse.licensing.LicenseUtils;
+import org.eclipse.licensing.LicensingUtils;
 import org.eclipse.licensing.ui.LicensingUI;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -92,7 +92,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 	}
 	
 	private void refreshTable() {
-		table.setInput(LicenseUtils.getLicenseKeys());
+		table.setInput(LicensingUtils.getLicenseKeys());
 	}
 	
 	private void createButtons(final Composite parent) {
@@ -126,7 +126,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 				}
 
 				java.nio.file.Path source = Paths.get(filePath);
-				java.nio.file.Path licenseFolder = Paths.get(LicenseUtils.getLicenseKeysFolder().getAbsolutePath());
+				java.nio.file.Path licenseFolder = Paths.get(LicensingUtils.getLicenseKeysFolder().getAbsolutePath());
 				java.nio.file.Path target = licenseFolder.resolve(source.getFileName());
 				
 				try {
