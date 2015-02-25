@@ -24,5 +24,12 @@
          </menu>
       </menuContribution>
    </extension>
+   <extension
+         point="org.eclipse.licensing.licensedProducts">
+      <product
+            class="my.licensed.plugin1.MyLicensedProduct"
+            id="cb4811fd-64a2-4e95-a758-ac9c716a6c31">
+      </product>
+   </extension>
 
 </plugin>
