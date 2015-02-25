@@ -13,7 +13,7 @@ import org.apache.commons.lang.SystemUtils;
 
 public class LicenseUtils {
 	
-	public static boolean hasValidLicense(UUID productId, byte[] encodedPublicKey) {
+	public static boolean hasValidLicenseKey(UUID productId, byte[] encodedPublicKey) {
 		PublicKey publicKey;
 		try {
 			publicKey = readPublicKeyFromBytes(encodedPublicKey);
@@ -22,12 +22,12 @@ public class LicenseUtils {
 			return false;
 		}
 
-		File[] licenseFiles = getLicenseFolder().listFiles();
-		if (licenseFiles != null) {
-			for (File file : licenseFiles) {
+		File[] licenseKeyFiles = getLicenseKeysFolder().listFiles();
+		if (licenseKeyFiles != null) {
+			for (File file : licenseKeyFiles) {
 				if (file.isFile()) {
-					License license = new License(file);
-					if (productId.equals(license.getProductId()) && license.isAuthentic(publicKey)) {
+					LicenseKey licenseKey = new LicenseKey(file);
+					if (productId.equals(licenseKey.getProductId()) && licenseKey.isAuthentic(publicKey)) {
 						return true;
 					}
 				}
@@ -44,25 +44,25 @@ public class LicenseUtils {
 		return key;
 	}
 	
-	public static License[] getLicenses() {
-		List<License> result = new ArrayList<License>();
+	public static LicenseKey[] getLicenseKeys() {
+		List<LicenseKey> result = new ArrayList<LicenseKey>();
 		
-		File[] licenseFiles = getLicenseFolder().listFiles();
-		if (licenseFiles != null) {
-			for (File file : licenseFiles) {
+		File[] licenseKeyFiles = getLicenseKeysFolder().listFiles();
+		if (licenseKeyFiles != null) {
+			for (File file : licenseKeyFiles) {
 				if (file.isFile()) {
-					License license = new License(file);
-					if (license.getProductId() != null) {
-						result.add(license);
+					LicenseKey licenseKey = new LicenseKey(file);
+					if (licenseKey.getProductId() != null) {
+						result.add(licenseKey);
 					}
 				}
 			}
 		}
 	
-		return result.toArray(new License[result.size()]);
+		return result.toArray(new LicenseKey[result.size()]);
 	}
 	
-	public static File getLicenseFolder() { 
+	public static File getLicenseKeysFolder() { 
 		return new File(SystemUtils.getUserHome(), ".eclipse/org.eclipse.licensing");
 	}
 

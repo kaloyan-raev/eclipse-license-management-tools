@@ -13,25 +13,25 @@ import java.util.UUID;
 
 import org.apache.commons.codec.binary.Base64;
 
-public class License {
+public class LicenseKey {
 	
 	public final static String PRODUCT_ID = "ProductId";
 	public final static String PRODUCT_NAME = "ProductName";
 	public final static String CUSTOMER_NAME = "CustomerName";
 	
 	/**
-	 * Base64-encoded string representation of the license signature.
+	 * Base64-encoded string representation of the license key signature.
 	 */
 	public final static String SIGNATURE = "Signature";
 	
 	private Properties properties;
 	private File file;
 	
-	public License(Properties properties) {
+	public LicenseKey(Properties properties) {
 		this.properties = properties;
 	}
 	
-	public License(File file) {
+	public LicenseKey(File file) {
 		this.file = file;
 		properties = new Properties();
 		try {
@@ -42,7 +42,7 @@ public class License {
 		}
 	}
 	
-	public License(String fileName) {
+	public LicenseKey(String fileName) {
 		this(new File(fileName));
 	}
 	

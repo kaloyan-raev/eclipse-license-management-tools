@@ -14,12 +14,12 @@ public class MyLicensedHandler1 extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		if (LicenseUtils.hasValidLicense(PRODUCT_ID, PUBLIC_KEY)) {
+		if (LicenseUtils.hasValidLicenseKey(PRODUCT_ID, PUBLIC_KEY)) {
 			MessageDialog.openInformation(HandlerUtil.getActiveShell(event),
 					"Licensed Command", "This is my first licensed command.");
 		} else {
 			MessageDialog.openError(HandlerUtil.getActiveShell(event),
-					"Invalid License", "No valid license to run my first licensed command.");
+					"Invalid License Key", "No valid license key to run my first licensed command.");
 		}
 		return null;
 	}
