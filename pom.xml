@@ -35,5 +35,7 @@
     <module>org.eclipse.licensing</module>
     <module>org.eclipse.licensing.ui</module>
     <module>my.licensed.plugin1</module>
+    <module>my.licensed.feature1</module>
+    <module>my.licensed.repository</module>
   </modules>
 </project>
