@@ -1,4 +1,4 @@
-package org.eclipse.licensing;
+package org.eclipse.licensing.utils;
 
 import java.io.File;
 import java.io.FileInputStream;

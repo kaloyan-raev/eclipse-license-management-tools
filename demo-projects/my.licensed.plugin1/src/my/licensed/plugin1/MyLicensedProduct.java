@@ -5,7 +5,7 @@ import java.security.PublicKey;
 import java.util.UUID;
 
 import org.eclipse.licensing.ILicensedProduct;
-import org.eclipse.licensing.LicensingUtils;
+import org.eclipse.licensing.utils.LicensingUtils;
 
 public class MyLicensedProduct implements ILicensedProduct {
 	

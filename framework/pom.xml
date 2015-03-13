@@ -32,7 +32,8 @@
   </build>
 
   <modules>
-    <module>org.eclipse.licensing</module>
+    <module>org.eclipse.licensing.core</module>
     <module>org.eclipse.licensing.ui</module>
+    <module>org.eclipse.licensing.utils</module>
   </modules>
 </project>

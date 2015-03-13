@@ -7,7 +7,7 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.licensing.LicensingUtils;
+import org.eclipse.licensing.utils.LicensingUtils;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 public class MyLicensedHandler1 extends AbstractHandler {

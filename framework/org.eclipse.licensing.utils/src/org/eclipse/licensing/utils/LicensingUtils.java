@@ -1,4 +1,4 @@
-package org.eclipse.licensing;
+package org.eclipse.licensing.utils;
 
 import java.io.File;
 import java.security.GeneralSecurityException;
@@ -8,8 +8,6 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import org.apache.commons.lang3.SystemUtils;
 
 public class LicensingUtils {
 	
@@ -63,7 +61,7 @@ public class LicensingUtils {
 	}
 	
 	public static File getLicenseKeysFolder() { 
-		return new File(SystemUtils.getUserHome(), ".eclipse/org.eclipse.licensing");
+		return new File(System.getProperty("user.home"), ".eclipse/org.eclipse.licensing");
 	}
 
 }

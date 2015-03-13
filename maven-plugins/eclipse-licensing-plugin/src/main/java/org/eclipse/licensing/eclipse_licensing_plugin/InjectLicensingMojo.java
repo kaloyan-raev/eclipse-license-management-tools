@@ -68,7 +68,7 @@ public class InjectLicensingMojo extends AbstractMojo {
     }
     
     private File getLicensingUtilsPlugin() {
-    	return TychoProjectUtils.getDependencyArtifacts(project).getArtifact(ArtifactType.TYPE_ECLIPSE_PLUGIN, "org.eclipse.licensing", null).getLocation();
+    	return TychoProjectUtils.getDependencyArtifacts(project).getArtifact(ArtifactType.TYPE_ECLIPSE_PLUGIN, "org.eclipse.licensing.utils", null).getLocation();
     }
     
     private void updateManifest() throws IOException {
@@ -76,10 +76,8 @@ public class InjectLicensingMojo extends AbstractMojo {
         Manifest manifest = new Manifest(new FileInputStream(manifestFile));
         String[] requiredBundles = manifest.getMainAttributes().getValue("Require-Bundle").split(",");
         List<String> requiredList = new ArrayList<String>(Arrays.asList(requiredBundles));
-        requiredList.remove("org.eclipse.licensing");
-        requiredList.add("org.apache.commons.io");
+        requiredList.remove("org.eclipse.licensing.utils");
         requiredList.add("org.apache.commons.codec");
-        requiredList.add("org.apache.commons.lang3");
         String newRequiredBundles = StringUtils.join(requiredList.toArray(), ",");
         manifest.getMainAttributes().putValue("Require-Bundle", newRequiredBundles);
         manifest.write(new FileOutputStream(manifestFile));
