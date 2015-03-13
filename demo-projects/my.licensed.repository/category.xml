@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/my.licensed.feature1_1.0.0.qualifier.jar" id="my.licensed.feature1" version="1.0.0.qualifier">
+   <feature url="features/my.licensed.feature1_0.0.0.jar" id="my.licensed.feature1" version="0.0.0">
       <category name="my_licensed"/>
    </feature>
    <category-def name="my_licensed" label="My Licensed Products"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="my.licensed.feature1"
-      label="My Licensed Feature 1"
+      id="org.eclipse.licensing"
+      label="Eclipse Licensing Framework"
       version="1.0.0.qualifier">
 
    <description url="http://www.example.com/description">
@@ -16,15 +16,24 @@
       [Enter License Description here.]
    </license>
 
-   <requires>
-      <import feature="org.eclipse.licensing" />
-   </requires>
-
    <plugin
-         id="my.licensed.plugin1"
+         id="org.eclipse.licensing.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="org.eclipse.licensing.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.licensing.utils"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>

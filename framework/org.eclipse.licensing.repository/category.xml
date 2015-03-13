@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.licensing_0.0.0.jar" id="org.eclipse.licensing" version="0.0.0">
+      <category name="elf"/>
+   </feature>
+   <category-def name="elf" label="Eclipse Licensing Framework"/>
+</site>
