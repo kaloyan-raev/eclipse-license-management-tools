@@ -20,7 +20,7 @@
           <execution>
             <phase>compile</phase>
             <goals>
-              <goal>sayhi</goal>
+              <goal>inject-licensing</goal>
             </goals>
           </execution>
         </executions>
