@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.eclipse.licensing</groupId>
+  <groupId>org.eclipse.licensing.demo</groupId>
   <artifactId>parent</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -32,8 +32,6 @@
   </build>
 
   <modules>
-    <module>org.eclipse.licensing</module>
-    <module>org.eclipse.licensing.ui</module>
     <module>my.licensed.plugin1</module>
     <module>my.licensed.feature1</module>
     <module>my.licensed.repository</module>
