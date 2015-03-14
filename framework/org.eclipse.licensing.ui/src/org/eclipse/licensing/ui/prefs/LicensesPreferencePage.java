@@ -47,6 +47,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 	
 	private TreeViewer tree;
 	private Button removeButton;
+	private Button detailsButton;
 
 	@Override
 	public void init(IWorkbench workbench) {
@@ -163,8 +164,8 @@ public class LicensesPreferencePage extends PreferencePage implements
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				Object element = ((IStructuredSelection) event.getSelection()).getFirstElement();
-				boolean enable = element != null && element instanceof LicenseKey;
-				removeButton.setEnabled(enable);
+				removeButton.setEnabled(element != null && element instanceof LicenseKey);
+				detailsButton.setEnabled(element != null);
 			}
 		});
 		refreshTable();
@@ -250,9 +251,10 @@ public class LicensesPreferencePage extends PreferencePage implements
 			}
 		});
 		
-		Button detailsButton = new Button(composite, SWT.PUSH);
+		detailsButton = new Button(composite, SWT.PUSH);
 		detailsButton.setLayoutData(new GridData(SWT.FILL, SWT.NONE, false, false));
 		detailsButton.setText("&Details...");
+		detailsButton.setEnabled(false);
 	}
 
 }
