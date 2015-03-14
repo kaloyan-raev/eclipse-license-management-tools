@@ -255,6 +255,56 @@ public class LicensesPreferencePage extends PreferencePage implements
 		detailsButton.setLayoutData(new GridData(SWT.FILL, SWT.NONE, false, false));
 		detailsButton.setText("&Details...");
 		detailsButton.setEnabled(false);
+		detailsButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				ISelection selection = tree.getSelection();
+				if (selection.isEmpty())
+					return;
+				
+				if (!(selection instanceof IStructuredSelection))
+					return;
+				
+				IStructuredSelection ssel = (IStructuredSelection) selection;
+				Object element = ssel.getFirstElement();
+				if (element == null)
+					return;
+				
+				String info = null;
+				if (element instanceof ILicensedProduct) {
+					info = getAsString((ILicensedProduct) element);
+				} else if (element instanceof LicenseKey) {
+					info = getAsString((LicenseKey) element);
+				}
+				
+				MessageDialog.openInformation(getShell(), "Details", info);
+			}
+		});
+	}
+	
+	private String getAsString(ILicensedProduct product) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Id: ").append(product.getId()).append('\n');
+		builder.append("Name: ").append(product.getName()).append('\n');
+		builder.append("Vendor: ").append(product.getVendor()).append('\n');
+		builder.append("Version: ").append(product.getVersion()).append('\n');
+		return builder.toString();
+	}
+	
+	private String getAsString(LicenseKey licenseKey) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Id: ").append(licenseKey.getId()).append('\n');
+		builder.append("Issuer: ").append(licenseKey.getIssuer()).append('\n');
+		builder.append("Type: ").append(licenseKey.getType()).append('\n');
+		builder.append("Expiraton Date: ").append(licenseKey.getExpirationDate()).append('\n');
+		builder.append("Product Id: ").append(licenseKey.getProductId()).append('\n');
+		builder.append("Product Name: ").append(licenseKey.getProductName()).append('\n');
+		builder.append("Product Vendor: ").append(licenseKey.getProductVendor()).append('\n');
+		builder.append("Product Versions: ").append(licenseKey.getProductVersions()).append('\n');
+		builder.append("Customer Id: ").append(licenseKey.getCustomerId()).append('\n');
+		builder.append("Customer Name: ").append(licenseKey.getCustomerName()).append('\n');
+		builder.append("Signature: ").append(licenseKey.getSignatureAsString()).append('\n');
+		return builder.toString();
 	}
 
 }

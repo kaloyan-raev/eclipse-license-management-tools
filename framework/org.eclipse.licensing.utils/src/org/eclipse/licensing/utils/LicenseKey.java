@@ -61,6 +61,14 @@ public class LicenseKey {
 		return properties.getProperty(key);
 	}
 	
+	public String getId() {
+		return getProperty(ID);
+	}
+	
+	public String getIssuer() {
+		return getProperty(ISSUER);
+	}
+	
 	public String getType() {
 		return getProperty(TYPE);
 	}
@@ -78,8 +86,16 @@ public class LicenseKey {
 		return getProperty(PRODUCT_NAME);
 	}
 	
+	public String getProductVendor() {
+		return getProperty(PRODUCT_VENDOR);
+	}
+	
 	public String getProductVersions() {
 		return getProperty(PRODUCT_VERSIONS);
+	}
+	
+	public String getCustomerId() {
+		return getProperty(CUSTOMER_ID);
 	}
 	
 	public String getCustomerName() {
