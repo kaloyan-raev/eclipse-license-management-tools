@@ -5,9 +5,13 @@ import java.util.UUID;
 
 public interface ILicensedProduct {
 	
-	public UUID getProductId();
+	public UUID getId();
 	
-	public String getProductName();
+	public String getName();
+	
+	public String getVendor();
+	
+	public String getVersion();
 	
 	public PublicKey getPublicKey();
 

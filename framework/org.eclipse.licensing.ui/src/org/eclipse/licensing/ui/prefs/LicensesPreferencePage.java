@@ -95,7 +95,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 				
 				List<LicenseKey> children = new ArrayList<LicenseKey>();
 				for (LicenseKey licenseKey : licenseKeys) {
-					if (product.getProductId().equals(licenseKey.getProductId())) {
+					if (product.getId().equals(licenseKey.getProductId())) {
 						children.add(licenseKey);
 					}
 				}
@@ -122,7 +122,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 			public String getText(Object element) {
 				if (element instanceof ILicensedProduct) {
 					ILicensedProduct product = (ILicensedProduct) element;
-					return product.getProductName();
+					return product.getName();
 				}
 				
 				if (element instanceof LicenseKey) {

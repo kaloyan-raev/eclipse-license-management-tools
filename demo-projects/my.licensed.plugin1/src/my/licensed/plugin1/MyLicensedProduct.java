@@ -46,13 +46,23 @@ public class MyLicensedProduct implements ILicensedProduct {
 
 
 	@Override
-	public UUID getProductId() {
+	public UUID getId() {
 		return PRODUCT_ID;
 	}
 
 	@Override
-	public String getProductName() {
+	public String getName() {
 		return "My First Licensed Product";
+	}
+
+	@Override
+	public String getVendor() {
+		return "My corp.";
+	}
+
+	@Override
+	public String getVersion() {
+		return "1.0";
 	}
 	
 	@Override

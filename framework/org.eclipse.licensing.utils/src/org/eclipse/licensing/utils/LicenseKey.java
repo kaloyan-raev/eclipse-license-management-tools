@@ -18,6 +18,7 @@ public class LicenseKey {
 	public final static String PRODUCT_ID = "ProductId";
 	public final static String PRODUCT_NAME = "ProductName";
 	public final static String CUSTOMER_NAME = "CustomerName";
+	// TODO version
 	
 	/**
 	 * Base64-encoded string representation of the license key signature.

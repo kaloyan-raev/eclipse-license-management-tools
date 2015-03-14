@@ -19,7 +19,7 @@ public class LicensedProducts {
 				final Object o = e.createExecutableExtension("class");
 				if (o instanceof ILicensedProduct) {
 					ILicensedProduct product = (ILicensedProduct) o;
-					if (productId.equals(product.getProductId())) {
+					if (productId.equals(product.getId())) {
 						return product;
 					}
 				}
