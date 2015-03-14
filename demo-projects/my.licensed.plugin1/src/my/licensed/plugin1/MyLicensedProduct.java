@@ -57,7 +57,7 @@ public class MyLicensedProduct implements ILicensedProduct {
 
 	@Override
 	public String getVendor() {
-		return "My corp.";
+		return "My Corp.";
 	}
 
 	@Override

@@ -15,10 +15,16 @@ import org.apache.commons.codec.binary.Base64;
 
 public class LicenseKey {
 	
+	public final static String ID = "Id";
+	public final static String ISSUER = "Issuer";
+	public final static String TYPE = "Type";
+	public final static String EXPIRATION_DATE = "ExpirationDate";
 	public final static String PRODUCT_ID = "ProductId";
 	public final static String PRODUCT_NAME = "ProductName";
+	public final static String PRODUCT_VENDOR = "ProductVendor";
+	public final static String PRODUCT_VERSIONS = "ProductVersions";
+	public final static String CUSTOMER_ID = "CustomerId";
 	public final static String CUSTOMER_NAME = "CustomerName";
-	// TODO version
 	
 	/**
 	 * Base64-encoded string representation of the license key signature.
@@ -55,6 +61,14 @@ public class LicenseKey {
 		return properties.getProperty(key);
 	}
 	
+	public String getType() {
+		return getProperty(TYPE);
+	}
+	
+	public String getExpirationDate() {
+		return getProperty(EXPIRATION_DATE);
+	}
+	
 	public UUID getProductId() {
 		String productId = getProperty(PRODUCT_ID);
 		return (productId == null) ? null : UUID.fromString(productId);
@@ -62,6 +76,10 @@ public class LicenseKey {
 	
 	public String getProductName() {
 		return getProperty(PRODUCT_NAME);
+	}
+	
+	public String getProductVersions() {
+		return getProperty(PRODUCT_VERSIONS);
 	}
 	
 	public String getCustomerName() {

@@ -122,12 +122,24 @@ public class LicensesPreferencePage extends PreferencePage implements
 			public String getText(Object element) {
 				if (element instanceof ILicensedProduct) {
 					ILicensedProduct product = (ILicensedProduct) element;
-					return product.getName();
+					return String.format("%s %s", product.getName(), product.getVersion());
 				}
 				
 				if (element instanceof LicenseKey) {
 					LicenseKey licenseKey = (LicenseKey) element;
-					return licenseKey.getProductId().toString();
+					StringBuilder builder = new StringBuilder(licenseKey.getType());
+					
+					String versions = licenseKey.getProductVersions();
+					if (versions != null) {
+						builder.append(" for versions ").append(versions);
+					}
+					
+					String expirationDate = licenseKey.getExpirationDate();
+					if (expirationDate != null) {
+						builder.append(", Expires on ").append(expirationDate);
+					}
+					
+					return builder.toString();
 				}
 				
 				return super.getText(element);
