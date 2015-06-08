@@ -61,13 +61,13 @@ The install manager will installed the demo project and the license management f
 
 Once the installation process completes and Eclipse is restarted a new menu will appear in the main menu.
 
-<screenshot>
+![image](https://cloud.githubusercontent.com/assets/468091/8045640/6640a496-0e3d-11e5-882a-8e5ce54ac6ff.png)
 
 The menu is contributed by the demo project for demonstration purposes.
 
 If you invoke the Licensing > My Licensed Command 1 menu action, it will fail running showing an error that there is no valid license key available for this command.
 
-<screenshot>
+![image](https://cloud.githubusercontent.com/assets/468091/8045672/a0672d16-0e3d-11e5-9bc5-db5cbf5a2cc4.png)
 
 This is a demonstration that the licensed plugin can verify if there is a valid license key registered and if not to handle the state in an appropriate manner. Of course, the displayed feedback to the user can be implemented in more sophisticated way than just showing a simple error message - like displaying a wizard for obtaining a valid license key.
 
@@ -79,11 +79,11 @@ There is a valid license key for the demo project in the software repository: de
 4. Select the license key file from the file system.
 5. Click the OK button.
 
-<screenshot>
+![image](https://cloud.githubusercontent.com/assets/468091/8045721/f5dc76d4-0e3d-11e5-8f13-ec55f5b329cb.png)
 
 If you now invoke the Licensing > My Licensed Command 1 menu action again, you will see that it will display a message that it is executed successfully. The added license key is recognized as valid one from the licensed plugin.
 
-<screenshot>
+![image](https://cloud.githubusercontent.com/assets/468091/8045702/d2573ca8-0e3d-11e5-8d62-11078233cba6.png)
 
 ## Using the tools in your own Eclipse plugin
 
