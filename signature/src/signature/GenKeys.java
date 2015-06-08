@@ -11,7 +11,7 @@ public class GenKeys {
 	public static void main(String[] args) throws Exception {
 		
 		if (args.length != 1) {
-			System.out.println("Usage: GenSig nameOfFileToSign");
+			System.out.println("Usage: GenKey nameOfFile");
 			System.exit(1);
 		}
 		
