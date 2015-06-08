@@ -19,9 +19,7 @@ The provided tools can be easily build from source using Maven. All of the comma
 
 The following command will build the Eclipse plugins of the license management framework and will install them in the local Maven repository. This step is a prerequisite for building the demo project.
 
-```
-#!bash
-
+``` bash
 mvn -f framework clean install
 ```
 
@@ -29,9 +27,7 @@ mvn -f framework clean install
 
 The following command will build the Maven plugin and will install it in the local Maven repository. This step is a prerequisite for building the demo project.
 
-```
-#!bash
-
+``` bash
 mvn -f maven-plugins/eclipse-licensing-plugin clean install
 ```
 
@@ -39,17 +35,13 @@ mvn -f maven-plugins/eclipse-licensing-plugin clean install
 
 The following command will build the Eclipse plugins of the demo project.
 
-```
-#!bash
-
+``` bash
 mvn -f demo-projects clean verify
 ```
 
 Note that the Maven plugin will modify the META-INF/MANIFEST.MF file of the demo project's my.licensed.plugin1. You need to revert the changes to avoid compilation problems in the IDE or next time you are building the demo project:
 
-```
-#!bash
-
+``` bash
 git checkout demo-projects/my.licensed.plugin1/META-INF/MANIFEST.MF
 ```
 
@@ -106,7 +98,7 @@ In any Eclipse plugin where you want to check for a valid license key, you need 
 
 None of the above dependencies will add any UI elements to Eclipse. If you want to add the user interface for license management, e.g. the Licenses preference page, then it is recommended to import the org.eclipse.licensing feature in your product's feature:
 
-```
+``` xml
 <requires>
    <import feature="org.eclipse.licensing" />
 </requires>
@@ -132,7 +124,7 @@ There are many ways to generate an UUID. Perhaps, the most easy is to use one of
 
 The string representation of the generated UUID can be converted to an UUID Java object using the following code snippet:
 
-```
+``` java
 UUID.fromString("cb4811fd-64a2-4e95-a758-ac9c716a6c31")
 ```
 
@@ -146,21 +138,19 @@ Therefore, it is recommended to embed the pubic key as byte array in the plugin'
 
 To embed the public key in the source code, you need to first convert the content of the public key file into an array of decimal bytes. The hexdump command can be used to achieve this:
 
-```
-#!bash
-
+``` bash
 hexdump mydsa.pub -v -e '1/1 "%d" ", "'
 ```
 
 The output of the command can be used to in the source code like this:
 
-```
+``` java
 public static byte[] PUBLIC_KEY = { <hexdump-output> };
 ```
 
 The the LicensingUtils helper class can be used to convert the byte array to a PublicKey object:
 
-```
+``` java
 PublicKey publicKey = LicensingUtils.readPublicKeyFromBytes(PUBLIC_KEY);
 ```
 
@@ -168,7 +158,7 @@ PublicKey publicKey = LicensingUtils.readPublicKeyFromBytes(PUBLIC_KEY);
 
 Checking if a valid license key is registered is as easy as using an utility method and passing the product UUID and the public key.
 
-```
+``` java
 if (LicensingUtils.hasValidLicenseKey(PRODUCT_ID, PUBLIC_KEY)) {
 	// execute the license-protected logic
 } else {
@@ -186,7 +176,7 @@ In order to avoid the above scenario, all of the critical code responsible for l
 
 Using the Maven plugin is as simple as adding the following snippet in the plugin's pom.xml:
 
-```
+``` xml
 <build>
   <plugins>
     <plugin>
