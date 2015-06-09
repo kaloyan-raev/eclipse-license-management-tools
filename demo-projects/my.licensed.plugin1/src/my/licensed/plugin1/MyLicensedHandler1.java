@@ -16,7 +16,8 @@ public class MyLicensedHandler1 extends AbstractHandler {
 					"Licensed Command", "This is my first licensed command.");
 		} else {
 			MessageDialog.openError(HandlerUtil.getActiveShell(event),
-					"Invalid License Key", "No valid license key to run my first licensed command.");
+					"Invalid License Key",
+					"No valid license key to run my first licensed command.");
 		}
 		return null;
 	}

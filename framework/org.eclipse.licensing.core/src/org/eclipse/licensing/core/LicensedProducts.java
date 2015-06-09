@@ -11,9 +11,10 @@ import org.eclipse.core.runtime.Platform;
 public class LicensedProducts {
 
 	private static final String EXTENSION_POINT_ID = "org.eclipse.licensing.core.licensedProducts";
-	
+
 	public static ILicensedProduct getLicensedProduct(UUID productId) {
-		IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(EXTENSION_POINT_ID);
+		IConfigurationElement[] config = Platform.getExtensionRegistry()
+				.getConfigurationElementsFor(EXTENSION_POINT_ID);
 		try {
 			for (IConfigurationElement e : config) {
 				final Object o = e.createExecutableExtension("class");
@@ -29,11 +30,12 @@ public class LicensedProducts {
 		}
 		return null;
 	}
-	
+
 	public static ILicensedProduct[] getLicensedProducts() {
 		List<ILicensedProduct> result = new ArrayList<ILicensedProduct>();
-		
-		IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(EXTENSION_POINT_ID);
+
+		IConfigurationElement[] config = Platform.getExtensionRegistry()
+				.getConfigurationElementsFor(EXTENSION_POINT_ID);
 		try {
 			for (IConfigurationElement e : config) {
 				final Object o = e.createExecutableExtension("class");
@@ -44,7 +46,7 @@ public class LicensedProducts {
 		} catch (CoreException ex) {
 			ex.printStackTrace();
 		}
-		
+
 		return result.toArray(new ILicensedProduct[result.size()]);
 	}
 

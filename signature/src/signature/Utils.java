@@ -24,11 +24,12 @@ public class Utils {
 	public static PublicKey readPublicKeyFromFile(String fileName)
 			throws IOException, GeneralSecurityException {
 		byte[] encoded = readFile(fileName);
-		
+
 		return readPublicKeyFromBytes(encoded);
 	}
-	
-	public static PublicKey readPublicKeyFromBytes(byte[] bytes) throws GeneralSecurityException {
+
+	public static PublicKey readPublicKeyFromBytes(byte[] bytes)
+			throws GeneralSecurityException {
 		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(bytes);
 		KeyFactory keyFactory = KeyFactory.getInstance("DSA", "SUN");
 		PublicKey key = keyFactory.generatePublic(keySpec);
@@ -46,14 +47,14 @@ public class Utils {
 
 		return key;
 	}
-	
+
 	public static byte[] readFile(String fileName) throws IOException {
 		FileInputStream in = new FileInputStream(fileName);
 		byte[] bytes = new byte[in.available()];
 		in.read(bytes);
 
 		in.close();
-		
+
 		return bytes;
 	}
 

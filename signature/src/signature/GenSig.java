@@ -28,9 +28,9 @@ public class GenSig {
 			sig.update(buffer, 0, len);
 		}
 		bufin.close();
-		
+
 		byte[] realSig = sig.sign();
-		
+
 		/* save the signature in a file */
 		FileOutputStream sigfos = new FileOutputStream("sig");
 		sigfos.write(realSig);
