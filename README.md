@@ -73,7 +73,7 @@ If you invoke the Licensing > My Licensed Command 1 menu action, it will fail to
 
 This is a demonstration that the licensed plugin can verify if there is a valid license key registered, and if none is found that it can handle this state in an appropriate manner. Of course, the displayed feedback to the user can be implemented in more sophisticated way than just showing a simple error message - like displaying a wizard for obtaining a valid license key.
 
-There is a valid license key for the demo project in the software repository: demo-projects/mylicense1.elf. You can register it in Eclipse using the following steps:
+There is a valid license key for the demo project in the software repository: [demo-projects/mylicense1.key](demo-projects/mylicense1.key). You can register it in Eclipse using the following steps:
 
 1. Go to Window > Preferences from the main menu.
 2. Select the Licenses page.
