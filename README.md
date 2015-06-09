@@ -1,19 +1,21 @@
 # License Management Tools for Eclipse (Prototype)
 
-This project is a prototype of a toolset for license management for the Eclipse Rich Client Platform. It can serve as a proof of concept and a base for dicussion for having such a project under the Eclipse Foundation.
+This project is a prototype of a toolset for license management for the Eclipse Rich Client Platform. It can serve as a proof of concept and a base for discussion for having such a project under the Eclipse Foundation.
+
+Such discussion is already happening in the [ide-dev@eclipse.org](https://dev.eclipse.org/mailman/listinfo/ide-dev) mailing list: https://dev.eclipse.org/mhonarc/lists/ide-dev/msg00690.html
 
 ## Overview
 
 The project consists of several modules:
 
 * Framework - a framework for license management, which provides a user interface for adding and removing license keys and can validate if there is a valid license key registered for installed licensed plugins.
-* Maven Plugin - makes the licensed plugins harder to crack by injecting the critical parts of the license management framework in them during the build
-* Demo Project - a very simple plugin that demonstrates how to use the license management framework
+* Maven Plugin - makes the licensed plugins harder to crack by injecting the critical parts of the license management framework in them during the build.
+* Demo Project - a very simple plugin that demonstrates how to use the license management framework.
 * Helper Tools - helper tools for signing license keys, generating and verifying keys and signatures, etc.
 
 ## Building
 
-The provided tools can be easily build from source using Maven. All of the command snippets provided below assumed that Maven 3.x is installed, this git repository is cloned locally and a terminal is opened in the root of the cloned git repository.
+The provided tools can be easily built from the source code using Maven. All of the command snippets provided below assume that: Maven 3.x is installed, this git repository is cloned locally and a terminal is opened in the root of the cloned git repository.
 
 ### Building the framework
 
@@ -54,10 +56,10 @@ After successfully building the demo project, you can install it in any Eclipse 
 3. Click on the Local... button.
 4. Browse the software repository produced by the build for the framework: ./framework/org.eclipse.licensing.repository/target/repository/
 5. Click the OK button to add the selected repository and close the Add Repository dialog.
-6. Repeat steps 2-5 to add the software repository for the demot project: ./demo-projects/my.licensed.repository/target/repository/
-7. Select the "My Licensed Feature 1" from the list and follow the usual steps for installing it.
+6. Repeat steps 2-5 to add the software repository for the demo project: ./demo-projects/my.licensed.repository/target/repository/
+7. Select the "My Licensed Feature 1" feature from the list and follow the usual steps for installing it.
 
-The install manager will installed the demo project and the license management framework as dependency.
+The install manager will install the demo project and the license management framework as dependency.
 
 Once the installation process completes and Eclipse is restarted a new menu will appear in the main menu.
 
@@ -65,11 +67,11 @@ Once the installation process completes and Eclipse is restarted a new menu will
 
 The menu is contributed by the demo project for demonstration purposes.
 
-If you invoke the Licensing > My Licensed Command 1 menu action, it will fail running showing an error that there is no valid license key available for this command.
+If you invoke the Licensing > My Licensed Command 1 menu action, it will fail to run showing an error that there is no valid license key available for this command.
 
 ![image](https://cloud.githubusercontent.com/assets/468091/8045672/a0672d16-0e3d-11e5-9bc5-db5cbf5a2cc4.png)
 
-This is a demonstration that the licensed plugin can verify if there is a valid license key registered and if not to handle the state in an appropriate manner. Of course, the displayed feedback to the user can be implemented in more sophisticated way than just showing a simple error message - like displaying a wizard for obtaining a valid license key.
+This is a demonstration that the licensed plugin can verify if there is a valid license key registered, and if none is found that it can handle this state in an appropriate manner. Of course, the displayed feedback to the user can be implemented in more sophisticated way than just showing a simple error message - like displaying a wizard for obtaining a valid license key.
 
 There is a valid license key for the demo project in the software repository: demo-projects/mylicense1.elf. You can register it in Eclipse using the following steps:
 
@@ -81,13 +83,13 @@ There is a valid license key for the demo project in the software repository: de
 
 ![image](https://cloud.githubusercontent.com/assets/468091/8045721/f5dc76d4-0e3d-11e5-8f13-ec55f5b329cb.png)
 
-If you now invoke the Licensing > My Licensed Command 1 menu action again, you will see that it will display a message that it is executed successfully. The added license key is recognized as valid one from the licensed plugin.
+If you now invoke the Licensing > My Licensed Command 1 menu action again, you will see that it will display a message that it is executed successfully. The added license key is recognized as valid for the licensed plugin.
 
 ![image](https://cloud.githubusercontent.com/assets/468091/8045702/d2573ca8-0e3d-11e5-8d62-11078233cba6.png)
 
 ## Using the tools in your own Eclipse plugin
 
-The best way to learn how to use the License Management Tools for your own Eclipse plugin is to examine the demo project.
+The best way to learn how to use the License Management Tools for your own Eclipse plugin is to examine the [demo project](demo-projects).
 
 ### Define the dependencies
 
@@ -108,21 +110,21 @@ This way the complete license management framework will be installed as dependen
 
 ### Implement ILicensedProduct
 
-A key moment of implementing license management for your Eclipse plugin is to define a class implementing the ILicensedProduct interface. The term "licensed product" refers to a collection of one or more Eclipse features that are considered parts of a single software product distributed with a single license key.
+A key moment of implementing license management for your Eclipse plugin is to define a class implementing the [ILicensedProduct](framework/org.eclipse.licensing.core/src/org/eclipse/licensing/core/ILicensedProduct.java) interface. The term "licensed product" refers to the collection of one or more Eclipse features that are considered parts of a single software product distributed with a single license key.
 
 A licensed product has the following attributes:
 
 * ID - universally unique identifier (UUID) of the product. It is important to be _universally_ unique, because this is the ID that will be mapped to the registered license keys.
 * Name - display name of the product. Can be any text string.
 * Vendor - display name of the product's vendor. Can be any text string. 
-* Version - product's verion. Must be an OSGi-compatible version.
-* Public Key - public key for verifying the signature of the license keys. It's an java.security.PublicKey object. Once specified, it should not be changed in future versions of the product.
+* Version - product's version. Must be an OSGi-compatible version.
+* Public Key - public key for verifying the signature of the license keys. It's a [java.security.PublicKey](https://docs.oracle.com/javase/7/docs/api/java/security/PublicKey.html) object. Once specified, it should not be changed in future versions of the product.
 
 #### Generating an UUID
 
-There are many ways to generate an UUID. Perhaps, the most easy is to use one of the online generators like: https://www.uuidgenerator.net/
+There are many ways to generate an UUID. Perhaps, it is easiest to use one of the online generators like: https://www.uuidgenerator.net/
 
-The string representation of the generated UUID can be converted to an UUID Java object using the following code snippet:
+The string representation of the generated UUID can be converted to a [java.util.UUID](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html) object using the following code snippet:
 
 ``` java
 UUID.fromString("cb4811fd-64a2-4e95-a758-ac9c716a6c31")
@@ -130,25 +132,25 @@ UUID.fromString("cb4811fd-64a2-4e95-a758-ac9c716a6c31")
 
 #### Generating a public and private key pair
 
-One easy way to generate a DSA key pair is using the provided GenKeys helper tool.
+One easy way to generate a DSA key pair is using the provided [GenKeys](signature/src/signature/GenKeys.java) helper tool.
 
-Then you need to create a java.security.PublicKey object from the public key file. One way is to include the public key file in your plugin and use the Java Security API to create the PublicKey object directly from the file. However, this is not recommended, because it is quite easy for malicious users to replace the public key file with their own and crack the license validation.
+Then you need to create a [java.security.PublicKey](https://docs.oracle.com/javase/7/docs/api/java/security/PublicKey.html) object from the public key file. One way is to include the public key file in your plugin and use the [Java Security API](https://docs.oracle.com/javase/7/docs/technotes/guides/security/overview/jsoverview.html) to create the PublicKey object directly from the file. However, this is not recommended, because it is quite easy for malicious users to replace the public key file with their own and crack the license validation.
 
-Therefore, it is recommended to embed the pubic key as byte array in the plugin's source code. While total protection from cracking is impossible, this way it is significantly harder for malicious users to replace the public key. They would need to decompile and the source code and compile with again. Additional protection can be achieved by using a code obfuscator (not covered here).
+Therefore, it is recommended to embed the pubic key as byte array in the plugin's source code. While total protection from cracking is impossible, this way it is significantly harder for malicious users to replace the public key. They would need to decompile the source code, modify it and compile it again. Additional protection can be achieved by using a code obfuscator (not covered here).
 
-To embed the public key in the source code, you need to first convert the content of the public key file into an array of decimal bytes. The hexdump command can be used to achieve this:
+To embed the public key in the source code, you need to first convert the content of the public key file into an array of decimal bytes. The [hexdump](http://linux.die.net/man/1/hexdump) command can be used to achieve this:
 
 ``` bash
 hexdump mydsa.pub -v -e '1/1 "%d" ", "'
 ```
 
-The output of the command can be used to in the source code like this:
+The output of the command can be used in the source code like this:
 
 ``` java
-public static byte[] PUBLIC_KEY = { <hexdump-output> };
+public static byte[] PUBLIC_KEY = { <hexdump_output> };
 ```
 
-The the LicensingUtils helper class can be used to convert the byte array to a PublicKey object:
+The the [LicensingUtils](framework/org.eclipse.licensing.base/src/org/eclipse/licensing/base/LicensingUtils.java) helper class can be used to convert the byte array to a PublicKey object:
 
 ``` java
 PublicKey publicKey = LicensingUtils.readPublicKeyFromBytes(PUBLIC_KEY);
@@ -156,7 +158,7 @@ PublicKey publicKey = LicensingUtils.readPublicKeyFromBytes(PUBLIC_KEY);
 
 ### Register the ILicensedProduct implementation
 
-The implementation of ILicensedProduct must be registered in the license management framework using the org.eclipse.licensing.core.licensedProducts extensions point.
+The implementation of ILicensedProduct must be registered in the license management framework using the [org.eclipse.licensing.core.licensedProducts](framework/org.eclipse.licensing.core/schema/org.eclipse.licensing.core.licensedProducts.exsd) extensions point.
 
 Add the following snippet in the plugin.xml of your Eclipse plugin:
 
@@ -184,13 +186,13 @@ if (LicensingUtils.hasValidLicenseKey(new MyLicensedProduct())) {
 }
 ```
 
-The utility method will check all available license keys if the match your licensed product, it will verify various license constraints like version range, expiration date, etc. If a matching license key is found, the utility method will check if it is authentic by using the provided license key to verify it's signature.
+The utility method will check all available license keys if they match your licensed product, it will verify various license constraints like version range, expiration date, etc. If a matching license key is found, the utility method will check if it is authentic by using the product's public key to verify its signature.
 
 ### Use the eclipse-licensing-plugin Maven plugin in the build
 
-The use of this Maven plugin is optional, but highly recommended for improving the robustness of the solution against cracking. Due to the extensible nature of the Eclipse Platform and the fact that the License Management Framework itself is open source, it is very easy for malicious users to create a feature patch that will replace the complete license management framework with their own implementation. Such implementation can just always return "true" in the LicensingUtils.hasValidLicenseKey() method, effectively cracking the license validation. Such feature patch can be published and easily used by anyone who wants to get an easy free-ride of any Eclipse plugin using this licensing management framework.
+The use of this Maven plugin is optional, but highly recommended for improving the robustness of the solution against cracking. Due to the extensible nature of the Eclipse Platform and the fact that the license management framework itself is open source, it is very easy for malicious users to create a feature patch that will replace the complete license management framework with their own implementation. Such implementation can just always return "true" in the [LicensingUtils.hasValidLicenseKey()](framework/org.eclipse.licensing.base/src/org/eclipse/licensing/base/LicensingUtils.java#L25) method, effectively cracking the license validation. Such feature patch can be published and easily used by anyone who wants to get an easy free-ride of any Eclipse plugin using this licensing management framework.
 
-In order to avoid the above scenario, all of the critical code responsible for license validation is kept in a separate plugin: org.eclipse.licensing.base. The content of this plugin can be easily copied in the every Eclipse plugin using the license management framework by using the eclipse-licensing-plugin Maven plugin. This way if malicious users want to crack the LicensingUtils.hasValidLicenseKey() method they need to do it in every Eclipse plugin that makes checks for license validation. This is far complex tasks than installing a feature patch and can be additionally complicated by using code obfuscators.
+In order to avoid the above scenario, all of the critical code responsible for license validation is kept in a separate plugin: org.eclipse.licensing.base. The content of this plugin can be easily copied in every licensed Eclipse plugin by using the eclipse-licensing-plugin Maven plugin. This way if malicious users want to crack the LicensingUtils.hasValidLicenseKey() method, they will need to do it in every Eclipse plugin that makes checks for license validation. This is far more complex task than installing a feature patch and can be additionally protected by using code obfuscators.
 
 Using the Maven plugin is as simple as adding the following snippet in the plugin's pom.xml:
 
@@ -221,18 +223,18 @@ At this point your Eclipse plugin should be well-protected from unauthorized usa
 The license key is a Java Properties file with the following properties:
 
 * Id - A decimal number indentifier of the license key. It is supposed to be unique per issuer.
-* Issuer - Who issued this license file. It could be the product vendor itself, or it could be a 3rd party license issuer.
+* Issuer - Who issued this license file. It may be the product vendor itself, or it may be a 3rd party license issuer.
 * Type - The license type: Evaluation|Commercial|Subscription|Perpetual|Custom.
-* ExpirationDate - A date with format YYYY-MM-DD.
-* ConcurrentUsers - The number of concurrent users at the same time.
+* ExpirationDate - A date in YYYY-MM-DD format.
+* ConcurrentUsers - The number of concurrent users using the same license key at the same time.
 * ProductId - The product UUID. It must be universally unique.
 * ProductName - The product display name.
 * ProductVendor - The product vendor name.
-* ProductVersions - The versions of the product, which this license key is valid for. It could be a single version (e.g. 1.0), a list of versions (e.g. 1.0,1.1,2.0) or a version range (e.g. [1.0,2.0))
+* ProductVersions - The versions of the product, which this license key is valid for. It must be a version range like [1.0,2.0).
 * CustomerId - A decimal number identifier for the customer. It is supposed to be unique per issuer.
 * CustomerName - The customer display name.
 * Signature - Base64-encoded String representation of the DSA signature of the license key file content. Before calculating the signature, the content is first normalized by sorting all properties and removing the Signature property if one already exists.
 
 It is allowed to have product-specific properties.
 
-Before distributing the license key to a user, it must be signed with the private key for the licensed product. This can be done by using the SignLicense helper tool.
+Before distributing the license key to a user, it must be signed with the private key for the licensed product. This can be done by using the [SignLicense](signature/src/signature/SignLicense.java) helper tool.
