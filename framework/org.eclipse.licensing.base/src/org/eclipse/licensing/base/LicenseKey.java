@@ -158,7 +158,7 @@ public class LicenseKey {
 
 	public boolean matchesProductVersion(String version) {
 		VersionRange versions = getProductVersions();
-		return (version == null) ? true : versions
+		return (versions == null) ? true : versions
 				.includes(new Version(version));
 	}
 
