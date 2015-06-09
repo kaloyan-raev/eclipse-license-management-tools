@@ -1,4 +1,4 @@
-package org.eclipse.licensing.utils;
+package org.eclipse.licensing.base;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +12,9 @@ import java.util.Properties;
 import java.util.UUID;
 
 import org.apache.commons.codec.binary.Base64;
+import org.eclipse.licensing.core.ILicensedProduct;
+import org.osgi.framework.Version;
+import org.osgi.framework.VersionRange;
 
 public class LicenseKey {
 	
@@ -90,8 +93,9 @@ public class LicenseKey {
 		return getProperty(PRODUCT_VENDOR);
 	}
 	
-	public String getProductVersions() {
-		return getProperty(PRODUCT_VERSIONS);
+	public VersionRange getProductVersions() {
+		String versions = getProperty(PRODUCT_VERSIONS);
+		return (versions == null) ? null : VersionRange.valueOf(versions);
 	}
 	
 	public String getCustomerId() {
@@ -108,6 +112,12 @@ public class LicenseKey {
 	
 	public byte[] getSignature() {
 		return Base64.decodeBase64(getSignatureAsString());
+	}
+
+	public boolean isValidFor(ILicensedProduct product) {
+		return (product.getId().equals(getProductId())
+				&& isAuthentic(product.getPublicKey()) && matchesProductVersion(product
+					.getVersion()));
 	}
 	
 	public boolean isAuthentic(PublicKey publicKey) {
@@ -134,6 +144,12 @@ public class LicenseKey {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public boolean matchesProductVersion(String version) {
+		VersionRange versions = getProductVersions();
+		return (version == null) ? true : versions
+				.includes(new Version(version));
 	}
 
 }

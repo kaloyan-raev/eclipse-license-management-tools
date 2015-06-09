@@ -17,6 +17,11 @@
    </license>
 
    <plugin
+         id="org.eclipse.licensing.base"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+   <plugin
          id="org.eclipse.licensing.core"
          download-size="0"
          install-size="0"
@@ -29,11 +34,5 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <plugin
-         id="org.eclipse.licensing.utils"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
 </feature>

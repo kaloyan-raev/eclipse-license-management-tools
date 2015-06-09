@@ -23,11 +23,11 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.licensing.ILicensedProduct;
-import org.eclipse.licensing.LicensedProducts;
+import org.eclipse.licensing.base.LicenseKey;
+import org.eclipse.licensing.base.LicensingUtils;
+import org.eclipse.licensing.core.ILicensedProduct;
+import org.eclipse.licensing.core.LicensedProducts;
 import org.eclipse.licensing.ui.LicensingUI;
-import org.eclipse.licensing.utils.LicenseKey;
-import org.eclipse.licensing.utils.LicensingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -41,6 +41,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.VersionRange;
 
 public class LicensesPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage {
@@ -130,7 +131,7 @@ public class LicensesPreferencePage extends PreferencePage implements
 					LicenseKey licenseKey = (LicenseKey) element;
 					StringBuilder builder = new StringBuilder(licenseKey.getType());
 					
-					String versions = licenseKey.getProductVersions();
+					VersionRange versions = licenseKey.getProductVersions();
 					if (versions != null) {
 						builder.append(" for versions ").append(versions);
 					}

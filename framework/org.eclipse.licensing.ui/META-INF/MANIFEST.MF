@@ -6,7 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.licensing.ui.LicensingUI
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.licensing.core,
- org.eclipse.licensing.utils
+ org.eclipse.licensing.base,
+ org.eclipse.licensing.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

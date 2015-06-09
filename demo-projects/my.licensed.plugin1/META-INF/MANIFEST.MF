@@ -4,9 +4,9 @@ Bundle-Name: My Licensed Plug-in 1
 Bundle-SymbolicName: my.licensed.plugin1;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: my.licensed.plugin1.Activator
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.licensing.base,
  org.eclipse.licensing.core,
- org.eclipse.licensing.utils
+ org.eclipse.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

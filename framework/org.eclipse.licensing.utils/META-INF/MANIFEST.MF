@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Eclipse Licensing Framework Utils
-Bundle-SymbolicName: org.eclipse.licensing.utils
-Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.eclipse.licensing.utils
-Require-Bundle: org.apache.commons.codec

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse Licensing Framework Base
+Bundle-SymbolicName: org.eclipse.licensing.base
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: org.eclipse.licensing.base
+Require-Bundle: org.eclipse.licensing.core,
+ org.eclipse.osgi,
+ org.apache.commons.codec

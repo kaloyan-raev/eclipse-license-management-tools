@@ -32,9 +32,9 @@
   </build>
 
   <modules>
+    <module>org.eclipse.licensing.base</module>
     <module>org.eclipse.licensing.core</module>
     <module>org.eclipse.licensing.ui</module>
-    <module>org.eclipse.licensing.utils</module>
     <module>org.eclipse.licensing-feature</module>
     <module>org.eclipse.licensing.repository</module>
   </modules>

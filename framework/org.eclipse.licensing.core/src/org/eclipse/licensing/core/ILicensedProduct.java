@@ -1,4 +1,4 @@
-package org.eclipse.licensing;
+package org.eclipse.licensing.core;
 
 import java.security.PublicKey;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package org.eclipse.licensing;
+package org.eclipse.licensing.core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.eclipse.core.runtime.Platform;
 
 public class LicensedProducts {
 
-	private static final String EXTENSION_POINT_ID = "org.eclipse.licensing.licensedProducts";
+	private static final String EXTENSION_POINT_ID = "org.eclipse.licensing.core.licensedProducts";
 	
 	public static ILicensedProduct getLicensedProduct(UUID productId) {
 		IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(EXTENSION_POINT_ID);

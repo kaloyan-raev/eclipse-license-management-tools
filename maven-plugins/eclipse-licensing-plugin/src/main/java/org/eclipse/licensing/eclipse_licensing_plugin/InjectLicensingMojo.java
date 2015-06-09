@@ -23,9 +23,9 @@ import org.eclipse.tycho.ArtifactType;
 import org.eclipse.tycho.core.utils.TychoProjectUtils;
 
 /**
- * Injects the licesing util classes into the licensed plugin.
+ * Injects the core licensing classes into the licensed plugin.
  */
-@Mojo( name = "inject-licensing")
+@Mojo(name = "inject-licensing")
 public class InjectLicensingMojo extends AbstractMojo {
 	
 	@Parameter(property = "project.build.outputDirectory", required = true)
@@ -36,15 +36,15 @@ public class InjectLicensingMojo extends AbstractMojo {
 	
     public void execute() throws MojoExecutionException {
         try {
-        	extractLicensingUtilFiles();
+        	extractLicensingBaseFiles();
         	updateManifest();
 		} catch (IOException e) {
 			throw new MojoExecutionException(e.getMessage(), e);
 		}
     }
     
-    private void extractLicensingUtilFiles() throws IOException {
-    	JarFile jar = new JarFile(getLicensingUtilsPlugin());
+    private void extractLicensingBaseFiles() throws IOException {
+    	JarFile jar = new JarFile(getLicensingBasePlugin());
     	Enumeration<JarEntry> entries = jar.entries();
     	while (entries.hasMoreElements()) {
     		JarEntry entry = entries.nextElement();
@@ -67,8 +67,8 @@ public class InjectLicensingMojo extends AbstractMojo {
     	jar.close();
     }
     
-    private File getLicensingUtilsPlugin() {
-    	return TychoProjectUtils.getDependencyArtifacts(project).getArtifact(ArtifactType.TYPE_ECLIPSE_PLUGIN, "org.eclipse.licensing.utils", null).getLocation();
+    private File getLicensingBasePlugin() {
+    	return TychoProjectUtils.getDependencyArtifacts(project).getArtifact(ArtifactType.TYPE_ECLIPSE_PLUGIN, "org.eclipse.licensing.base", null).getLocation();
     }
     
     private void updateManifest() throws IOException {
@@ -76,8 +76,9 @@ public class InjectLicensingMojo extends AbstractMojo {
         Manifest manifest = new Manifest(new FileInputStream(manifestFile));
         String[] requiredBundles = manifest.getMainAttributes().getValue("Require-Bundle").split(",");
         List<String> requiredList = new ArrayList<String>(Arrays.asList(requiredBundles));
-        requiredList.remove("org.eclipse.licensing.utils");
+        requiredList.remove("org.eclipse.licensing.base");
         requiredList.add("org.apache.commons.codec");
+        requiredList.add("org.eclipse.osgi");
         String newRequiredBundles = StringUtils.join(requiredList.toArray(), ",");
         manifest.getMainAttributes().putValue("Require-Bundle", newRequiredBundles);
         manifest.write(new FileOutputStream(manifestFile));

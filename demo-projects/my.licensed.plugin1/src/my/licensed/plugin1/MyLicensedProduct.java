@@ -4,8 +4,8 @@ import java.security.GeneralSecurityException;
 import java.security.PublicKey;
 import java.util.UUID;
 
-import org.eclipse.licensing.ILicensedProduct;
-import org.eclipse.licensing.utils.LicensingUtils;
+import org.eclipse.licensing.base.LicensingUtils;
+import org.eclipse.licensing.core.ILicensedProduct;
 
 public class MyLicensedProduct implements ILicensedProduct {
 	
