@@ -154,6 +154,24 @@ The the LicensingUtils helper class can be used to convert the byte array to a P
 PublicKey publicKey = LicensingUtils.readPublicKeyFromBytes(PUBLIC_KEY);
 ```
 
+### Register the ILicensedProduct implementation
+
+The implementation of ILicensedProduct must be registered in the license management framework using the org.eclipse.licensing.core.licensedProducts extensions point.
+
+Add the following snippet in the plugin.xml of your Eclipse plugin:
+
+``` xml
+<extension
+      point="org.eclipse.licensing.core.licensedProducts">
+   <product
+         class="my.licensed.plugin1.MyLicensedProduct"
+         id="cb4811fd-64a2-4e95-a758-ac9c716a6c31">
+   </product>
+</extension>
+```
+
+The values of the "id" and "class" attributes must be replaced with the product UUID and ILicensedProduct implementation class of your licensed product.
+
 ### Check if there is a valid license key registered
 
 Checking if a valid license key is registered is as easy as using an utility method and passing the ILicensedProduct implementation.
