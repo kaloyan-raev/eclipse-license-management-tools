@@ -93,8 +93,8 @@ The best way to learn how to use the License Management Tools for your own Eclip
 
 In any Eclipse plugin where you want to check for a valid license key, you need to add the following plugins dependencies:
 
+* org.eclipse.licensing.base
 * org.eclipse.licensing.core
-* org.eclipse.licensing.utils
 
 None of the above dependencies will add any UI elements to Eclipse. If you want to add the user interface for license management, e.g. the Licenses preference page, then it is recommended to import the org.eclipse.licensing feature in your product's feature:
 
@@ -156,10 +156,10 @@ PublicKey publicKey = LicensingUtils.readPublicKeyFromBytes(PUBLIC_KEY);
 
 ### Check if there is a valid license key registered
 
-Checking if a valid license key is registered is as easy as using an utility method and passing the product UUID and the public key.
+Checking if a valid license key is registered is as easy as using an utility method and passing the ILicensedProduct implementation.
 
 ``` java
-if (LicensingUtils.hasValidLicenseKey(PRODUCT_ID, PUBLIC_KEY)) {
+if (LicensingUtils.hasValidLicenseKey(new MyLicensedProduct())) {
 	// execute the license-protected logic
 } else {
 	// handle the invalid license key
@@ -172,7 +172,7 @@ The utility method will check all available license keys if the match your licen
 
 The use of this Maven plugin is optional, but highly recommended for improving the robustness of the solution against cracking. Due to the extensible nature of the Eclipse Platform and the fact that the License Management Framework itself is open source, it is very easy for malicious users to create a feature patch that will replace the complete license management framework with their own implementation. Such implementation can just always return "true" in the LicensingUtils.hasValidLicenseKey() method, effectively cracking the license validation. Such feature patch can be published and easily used by anyone who wants to get an easy free-ride of any Eclipse plugin using this licensing management framework.
 
-In order to avoid the above scenario, all of the critical code responsible for license validation is kept in a separate plugin: org.eclipse.licensing.utils. The content of this plugin can be easily copied in the every Eclipse plugin using the license management framework by using the eclipse-licensing-plugin Maven plugin. This way if malicious users want to crack the LicensingUtils.hasValidLicenseKey() method they need to do it in every Eclipse plugin that makes checks for license validation. This is far complex tasks than installing a feature patch and can be additionally complicated by using code obfuscators.
+In order to avoid the above scenario, all of the critical code responsible for license validation is kept in a separate plugin: org.eclipse.licensing.base. The content of this plugin can be easily copied in the every Eclipse plugin using the license management framework by using the eclipse-licensing-plugin Maven plugin. This way if malicious users want to crack the LicensingUtils.hasValidLicenseKey() method they need to do it in every Eclipse plugin that makes checks for license validation. This is far complex tasks than installing a feature patch and can be additionally complicated by using code obfuscators.
 
 Using the Maven plugin is as simple as adding the following snippet in the plugin's pom.xml:
 
