@@ -17,7 +17,11 @@ import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.PublicKey;
 import java.security.Signature;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -126,8 +130,8 @@ public class LicenseKey {
 
 	public boolean isValidFor(ILicensedProduct product) {
 		return (product.getId().equals(getProductId())
-				&& isAuthentic(product.getPublicKey()) && matchesProductVersion(product
-					.getVersion()));
+				&& isAuthentic(product.getPublicKey())
+				&& matchesProductVersion(product.getVersion()) && isWithinExpirationDate());
 	}
 
 	public boolean isAuthentic(PublicKey publicKey) {
@@ -160,6 +164,23 @@ public class LicenseKey {
 		VersionRange versions = getProductVersions();
 		return (versions == null) ? true : versions
 				.includes(new Version(version));
+	}
+
+	public boolean isWithinExpirationDate() {
+		String expirationDate = getExpirationDate();
+		if (expirationDate == null) {
+			// no date restriction
+			return true;
+		}
+
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			Date date = format.parse(getExpirationDate() + " 23:59:59");
+			return date.compareTo(new Date()) > 0;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }
